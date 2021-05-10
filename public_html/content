@@ -1,0 +1,89 @@
+<?php
+/**
+ * Rewrite URLs
+ *
+ * @package     PROPS
+ * @link        http://props.sourceforge.net/
+ *              PROPS - Open Source News Publishing Platform
+ * @copyright   Copyright (c) 2001 The Herald-Mail Co.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * 'LICENSE' file included with this software for more details.
+ *
+ * @license     http://www.gnu.org/licenses/gpl.txt  GNU GENERAL PUBLIC LICENSE
+ * @version     $Id: content,v 1.2 2006/10/22 19:55:22 roufneck Exp $
+ */
+
+global $_REQUEST;
+
+//  Split the URL apart on hyphens, into an array of name/value pairs
+preg_match_all("/([^-]+)-([^-]+)-/", $HTTP_SERVER_VARS["REQUEST_URI"], $url_array);
+
+// Get version number of the static URL encoding scheme, as an attempt
+// at backward compatibility.  minor_version is commented out for performance
+// gain, since we currently have no use for it.
+$major_version = ereg_replace("[^0-9]", "", $url_array[1][0]); // sanitize that muva
+// $minor_version = ereg_replace("[^0-9]", "", $url_array[2][0]); // do the same to this one also
+
+switch($major_version) {
+
+    case "2": {
+
+        //  Version 2 splits on slashes instead of hyphens
+        preg_match_all("/([^\/]+)\/([^\/]+)\//", $HTTP_SERVER_VARS["REQUEST_URI"], $url_array);
+
+        // Loop through the name value pairs and set the URL variable values
+        // Skip the first pair, 'cause that always contains "major_version/minor_version"
+        for ($i = 1; $i < (count($url_array[0])); $i++) {
+            $name = ereg_replace("[^_a-zA-Z0-9]", "", $url_array[1][$i]); // sanitize that muva
+            $value = ereg_replace("[^_a-zA-Z0-9]", "", $url_array[2][$i]); // do the same to this one also
+            @eval("\$_REQUEST[\"$name\"] = '$value';");
+        }
+
+    } break;
+
+    case "1": {
+
+        // Loop through the name value pairs and set the URL variable values
+        // Skip the first pair, 'cause that always contains "major_version/minor_version"
+        for ($i = 1; $i < (count($url_array[0])); $i++) {
+            $name = ereg_replace("[^_a-zA-Z0-9]", "", $url_array[1][$i]); // sanitize that muva
+            $name = @pack("H" . strlen($name), $name); // convert from hex to ascii
+            $value = ereg_replace("[^_a-zA-Z0-9]", "", $url_array[2][$i]); // do the same to this one also
+            $value = @pack("H" . strlen($value), $value); // convert from hex to ascii
+
+            if ($name == "context") {
+                $name = "module";
+
+                if ($value == "story")
+                    $value = "displaystory";
+
+                if ($value == "section")
+                    $value = "displaysection";
+
+            }
+
+            if ($name == "section") {
+                $name = "section_id";
+                include_once("./config.php");
+                eval(loadlib("config,sections"));
+                $value = section_id_of_shortname($value);
+            }
+
+            @eval("\$_REQUEST[\"$name\"] = '$value';");
+        }
+
+    } break;
+} // end switch
+
+// Now call index.php as if it were being accessed directly from a URL
+include_once("./index.php");
+
+?>

@@ -1,0 +1,143 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>{publication_name}</title>
+    <meta http-equiv="Content-Language" content="en" />
+    <meta name="keywords" content="PROPS - Open Source News Publishing Platform 0.8, http://props.sourceforge.net/" />
+    <link rel="stylesheet" type="text/css" media="all" href="props.css" />
+    <!--[if IE]><link rel="stylesheet" type="text/css" media="all" href="props.iefix.css" /><![endif]-->
+    <script type="text/javascript" src="{scripts_url}props.js"></script>
+</head>
+<body>
+<div id="container"><!-- container -->
+
+<div id="header">
+    {include snippet='header'}
+</div>
+
+<div id="mainContent">
+    {error_message}
+    <h1>Template tag tests</h1>
+
+    <h2>USERS</h2>
+        <fieldset><legend>user_name</legend><p>{user_name altoutput='<em>no one is logged in</em>'}</p></fieldset>
+    <h2>IF/ELSEIF/ELSE/ENDIF tests</h2>
+        <fieldset><legend>if logged in then display user name</legend><p>{if user_logged_in='true'}{user_name}{else}<em>no one is logged in</em>{endif}</p></fieldset>
+        <fieldset><legend>if NOT logged in then display login link</legend><p>{if user_logged_in='false'}<a href="{gen_url cmd='users-login'}">Login</a>{endif}</p></fieldset>
+        <fieldset>
+            <legend>if/else user logged in test</legend>
+            <p>
+            {if user_logged_in='false'}
+                1:display if logged out<br />
+                {if user_logged_in='true'}
+                    1.1:dont-display<br />
+                {else}
+                    1.2:display if logged out<br />
+                {endif}
+                2:display if logged out... I said, only when logged out<br />
+            {else}
+                3:display if logged in<br />
+                {if user_logged_in='true'}
+                    3.1:display if logged in<br />
+                {else}
+                    3.2:dont-display<br />
+                {endif}
+                4:display if logged in... I said, only when logged in<br />
+            {endif}
+            </p>
+        </fieldset>
+
+        <fieldset>
+            <legend>if/elseif/else/endif</legend>
+            <a href="{request_url}&amp;tmp=1&amp;tmp2=1">test1</a>&nbsp;
+            <a href="{request_url}&amp;tmp=1&amp;tmp2=3">test2</a>&nbsp;
+            <a href="{request_url}&amp;tmp=2&amp;tmp2=1">test3</a>&nbsp;
+            <a href="{request_url}&amp;tmp=3&amp;tmp2=2">test4</a>
+
+            <p>
+            {if var='tmp' comparison='eq' value='1' lvl='0.1'}
+
+                0.1 if tmp = 1<br />
+                {if var='tmp2' comparison='eq' value='1' lvl='1.1'}
+                    1.1 if tmp2 = 1<br />
+                {elseif var='tmp2' comparison='eq' value='2' lvl='1.2'}
+                    1.2 elseif tmp2 = 2<br />
+                {else}
+                    1.3 else tmp2 = {getkey var='tmp2'}<br />
+                {endif}
+
+            {elseif var='tmp' comparison='eq' value='2' lvl='0.2'}
+
+                0.2 elseif tmp = 2<br />
+                {if var='tmp2' comparison='eq' value='1' lvl='1.4'}
+                    1.4 if tmp2 = 1<br />
+                {elseif var='tmp2' comparison='eq' value='2' lvl='1.5'}
+                    1.5 elseif tmp2 = 2<br />
+                {endif}
+
+            {elseif var='tmp' comparison='eq' value='3' lvl='0.3'}
+                0.3 elseif tmp = 3<br />
+            {else}
+                0.4 else tmp = {getkey var='tmp2'}<br />
+            {endif}
+            </p>
+        </fieldset>
+
+    <h2>GLOBALTAGS</h2>
+        <fieldset><legend>base_ssl_url</legend><p>{base_ssl_url altoutput='<em>no output</em>'}</p></fieldset>
+        <fieldset><legend>base_url</legend><p>{base_url altoutput='<em>no output</em>'}</p></fieldset>
+        <fieldset><legend>current_datetime</legend><p>{current_datetime altoutput='<em>no output</em>'}</p></fieldset>
+        <fieldset><legend>current_datetime '%A %e %B %Y %H:%M'</legend><p>{current_datetime dateformat='%A %e %B %Y %H:%M' altoutput='<em>no output</em>'}</p></fieldset>
+        <fieldset><legend>editionlist</legend><p>{editionlist altoutput='<em>no output</em>'}</p></fieldset>
+        <fieldset><legend>editionyears</legend><p>{editionyears altoutput='<em>no output</em>'}</p></fieldset>
+        <fieldset><legend>edition_date</legend><p>{edition_date altoutput='<em>no output</em>'}</p></fieldset>
+        <fieldset><legend>edition_id</legend><p>{edition_id altoutput='<em>no output</em>'}</p></fieldset>
+        <fieldset><legend>frontpage_url</legend><p>{frontpage_url altoutput='<em>no output</em>'}</p></fieldset>
+        <fieldset><legend>gen_url</legend><p>{gen_url altoutput='<em>no output</em>'}</p></fieldset>
+        <fieldset><legend>page_id</legend><p>{page_id altoutput='<em>no output</em>'}</p></fieldset>
+        <fieldset><legend>poweredby</legend><p>{poweredby altoutput='<em>no output</em>'}</p></fieldset>
+        <fieldset><legend>publication_name</legend><p>{publication_name altoutput='<em>no output</em>'}</p></fieldset>
+        <fieldset><legend>request 'template'</legend><p>{request var='template' altoutput='<em>no output</em>'}</p></fieldset>
+        <fieldset><legend>request_uri</legend><p>{request_uri altoutput='<em>no output</em>'}</p></fieldset>
+        <fieldset><legend>request_url</legend><p>{request_url altoutput='<em>no output</em>'}</p></fieldset>
+        <fieldset><legend>section</legend><p>{section altoutput='<em>no output</em>'}</p></fieldset>
+        <fieldset><legend>sectionlist</legend><p>{sectionlist altoutput='<em>no output</em>'}</p></fieldset>
+        <fieldset><legend>section_fullname</legend><p>{section_fullname altoutput='<em>no output</em>'}</p></fieldset>
+        <fieldset><legend>section_shortname</legend><p>{section_shortname altoutput='<em>no output</em>'}</p></fieldset>
+        <fieldset><legend>storylist</legend><p>{storylist altoutput='<em>no output</em>'}</p></fieldset>
+        <fieldset><legend>most_popular_stories</legend><p>{most_popular_stories altoutput='<em>no output</em>'}</p></fieldset>
+    <h2>DISPLAYSTORY</h2>
+        <fieldset><legend>story_id</legend><p>{story_id altoutput='<em>no output</em>'}</p></fieldset>
+        <fieldset><legend>story_url</legend><p>{story_url altoutput='<em>no output</em>'}</p></fieldset>
+        <fieldset><legend>story_date</legend><p>{story_date altoutput='<em>no output</em>'}</p></fieldset>
+        <fieldset><legend>story_modified</legend><p>{story_modified altoutput='<em>no output</em>'}</p></fieldset>
+        <fieldset><legend>wordcount</legend><p>{wordcount altoutput='<em>no output</em>'}</p></fieldset>
+        <fieldset><legend>revision</legend><p>{revision altoutput='<em>no output</em>'}</p></fieldset>
+        <fieldset><legend>headline</legend><p>{headline altoutput='<em>no output</em>'}</p></fieldset>
+        <fieldset><legend>subhead</legend><p>{subhead altoutput='<em>no output</em>'}</p></fieldset>
+        <fieldset><legend>byline_prefix</legend><p>{byline_prefix altoutput='<em>no output</em>'}</p></fieldset>
+        <fieldset><legend>byline_name</legend><p>{byline_name altoutput='<em>no output</em>'}</p></fieldset>
+        <fieldset><legend>byline_suffix</legend><p>{byline_suffix altoutput='<em>no output</em>'}</p></fieldset>
+        <fieldset><legend>abstract</legend><p>{abstract altoutput='<em>no output</em>'}</p></fieldset>
+        <fieldset><legend>body_content</legend>{body_content altoutput='<em>no output</em>'}</fieldset>
+        <fieldset><legend>end_content</legend><p>{end_content altoutput='<em>no output</em>'}</p></fieldset>
+        <fieldset><legend>copyright</legend><p>{copyright altoutput='<em>no output</em>'}</p></fieldset>
+        <fieldset><legend>story_views</legend><p>{story_views altoutput='<em>no output</em>'}</p></fieldset>
+        <fieldset><legend>related_storylist</legend><p>{related_storylist altoutput='<em>no output</em>'}</p></fieldset>
+        <fieldset><legend>story_comments</legend><p>{story_comments altoutput='<em>no output</em>'}</p></fieldset>
+</div>
+
+<div id="sideBar">
+    {include snippet='sidebar'}
+    {include snippet='tagtest'}
+    {include snippet='currentpoll'}
+</div>
+
+<div id="footer">
+    {include snippet='footer'}
+</div>
+
+</div><!-- /container -->
+</body>
+</html>

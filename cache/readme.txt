@@ -1,0 +1,1 @@
+Folder used for storing cache and temp files

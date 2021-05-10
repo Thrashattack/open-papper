@@ -1,0 +1,307 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>{publication_name}</title>
+    <meta http-equiv="Content-Language" content="en" />
+    <meta name="keywords" content="PROPS - Open Source News Publishing Platform 0.8, http://props.sourceforge.net/" />
+    <link rel="stylesheet" type="text/css" media="all" href="props.css" />
+    <!--[if IE]><link rel="stylesheet" type="text/css" media="all" href="props.iefix.css" /><![endif]-->
+    <script type="text/javascript" src="{scripts_url}props.js"></script>
+</head>
+<body>
+<div id="container"><!-- container -->
+
+<div id="header">
+    {include snippet='header'}
+</div>
+
+<div id="mainContent">
+    {error_message}
+
+    {if var='cmd' comparison='eq' value='users-login'}
+        <form method="post" action="./">
+        <input name="cmd" type="hidden" value="login" />
+        <input name="onfailure" type="hidden" value="users-login" />
+        <input name="pageID" type="hidden" value="{page_id}" />
+        <fieldset style="width: 400px; margin: 0 auto; border: 0;">
+            <legend>Basic login</legend>
+            <dl>
+                <dt><label>Username</label></dt>
+                <dd><input class="large" type="text" id="username" name="username" value="{request var='username'}" /></dd>
+                {error_message var='username' prepend='<dd>' append='</dd>'}
+            </dl>
+            <dl>
+                <dt><label>Password</label></dt>
+                <dd><input class="large" type="password" id="password" name="password" value="" /></dd>
+                {error_message var='password' prepend='<dd>' append='</dd>'}
+            </dl>
+            <p>
+                <a href="{gen_url cmd='users-register'}">Free Registration</a>&nbsp;&nbsp;
+                <a href="{gen_url cmd='users-passwordrecovery'}">Forgot password?</a>
+            </p>
+            <p>
+                <input class="button" type="submit" id="op" name="op" value="Login" />
+            </p>
+        </fieldset>
+        </form>
+        <br />
+
+        <form method="post" action="./">
+        <input name="cmd" type="hidden" value="login" />
+        <input name="pageID" type="hidden" value="{page_id}" />
+        <fieldset style="width: 400px; margin: 0 auto; border: 0;">
+            <legend>OpenID login</legend>
+            <dl>
+                <dt><label>OpenID</label></dt>
+                <dd><input class="openid large" type="text" id="openid_url" name="openid_url" value="{request var='openid_url'}" /></dd>
+                {error_message var='openid_url' prepend='<dd>' append='</dd>'}
+            </dl>
+            <p>
+                <a href="{gen_url cmd='users-register'}">Free Registration</a>&nbsp;&nbsp;
+                <a target='_blank' href='http://openid.net/'>What is OpenID?</a>&nbsp;&nbsp;
+                <a target='_blank' href='http://www.getmyopenid.com/registration/register.html'>Get an OpenID url</a>
+            </p>
+            <p>
+                <input class="button" type="submit" id="op" name="op" value="Login" />
+            </p>
+        </fieldset>
+        </form>
+
+    {elseif var='cmd' comparison='eq' value='users-register'}
+
+        <form action="" method="post">
+        <input name="cmd" type="hidden" value="users-register" />
+        <input name="pageID" type="hidden" value="{page_id}" />
+        <fieldset style="border: 0;">
+            <h1>Create an account</h1>
+            <dl>
+                <dt><label>Username</label></dt>
+                <dd><input class="large" type="text" id="username" name="username" value="{request var='username'}" /></dd>
+                {error_message var='username' prepend='<dd>' append='</dd>'}
+            </dl>
+
+            <dl>
+                <dt><label>Password</label></dt>
+                <dd><input class="large" type="password" id="password" name="password" value="" /></dd>
+                {error_message var='password' prepend='<dd>' append='</dd>'}
+            </dl>
+            <dl>
+                <dt><label>Re-enter password</label></dt>
+                <dd><input class="large" type="password" id="password2" name="password2" value="" /></dd>
+                {error_message var='password2' prepend='<dd>' append='</dd>'}
+            </dl>
+
+            <dl>
+                <dt><label>Email address</label></dt>
+                <dd><input class="large" type="text" id="email_address" name="email_address" value="{request var='email_address'}" /></dd>
+                {error_message var='email_address' prepend='<dd>' append='</dd>'}
+            </dl>
+            <dl>
+                <dt><label>Re-enter email address</label></dt>
+                <dd><input class="large" type="text" id="email_address2" name="email_address2" value="{request var='email_address2'}" /></dd>
+                {error_message var='email_address2' prepend='<dd>' append='</dd>'}
+            </dl>
+
+            <dl>
+                <dt><label>Email bulletins</label><br />Select the email bulletin(s) to which you would like to subscribe</dt>
+                {list_bulletins format='<dd><input name="bulletins[]" class="checkbox" type="checkbox" value="%i" %c /> %N</dd>'}
+                {error_message var='bulletins' prepend='<dd>' append='</dd>'}
+            </dl>
+
+            <p>
+                <input class="button" type="submit" id="op" name="op" value="Create account" />
+            </p>
+        </fieldset>
+        </form>
+
+    {elseif var='cmd' comparison='eq' value='users-register_openid'}
+
+        <form action="" method="post">
+        <input name="cmd" type="hidden" value="users-register_openid" />
+        <input name="pageID" type="hidden" value="{page_id}" />
+        <fieldset style="border: 0;">
+            <h1>Create an account</h1>
+            <dl>
+                <dt><label>OpenID</label></dt>
+                <dd><input class="openid large" type="text" id="openid_url" name="openid_url" value="{request var='openid_url'}" /></dd>
+                {error_message var='openid_url' prepend='<dd>' append='</dd>'}
+            </dl>
+
+            <dl>
+                <dt><label>Username</label></dt>
+                <dd><input class="large" type="text" id="username" name="username" value="{request var='username'}" /></dd>
+                {error_message var='username' prepend='<dd>' append='</dd>'}
+            </dl>
+
+            <dl>
+                <dt><label>Email address</label></dt>
+                <dd><input class="large" type="text" id="email_address" name="email_address" value="{request var='email_address'}" /></dd>
+                {error_message var='email_address' prepend='<dd>' append='</dd>'}
+            </dl>
+            <dl>
+                <dt><label>Re-enter email address</label></dt>
+                <dd><input class="large" type="text" id="email_address2" name="email_address2" value="{request var='email_address2'}" /></dd>
+                {error_message var='email_address2' prepend='<dd>' append='</dd>'}
+            </dl>
+
+            <dl>
+                <dt><label>Email bulletins</label><br />Select the email bulletin(s) to which you would like to subscribe</dt>
+                {list_bulletins format='<dd><input name="bulletins[]" class="checkbox" type="checkbox" value="%i" %c /> %N</dd>'}
+                {error_message var='bulletins' prepend='<dd>' append='</dd>'}
+            </dl>
+
+            <p>
+                <input class="button" type="submit" id="op" name="op" value="Create account" />
+            </p>
+        </fieldset>
+        </form>
+
+    {elseif var='cmd' comparison='eq' value='users-activate'}
+
+        <form action="" method="post">
+        <input name="cmd" type="hidden" value="activate" />
+        <input name="pageID" type="hidden" value="{page_id}" />
+        <fieldset style="border: 0;">
+            <h1>Account activation</h1>
+
+            <dl>
+                <dt><label>User id</label></dt>
+                <dd><input class="large" type="text" id="uid" name="uid" value="{request var='uid'}" /></dd>
+                {error_message var='uid' prepend='<dd>' append='</dd>'}
+            </dl>
+
+            <dl>
+                <dt><label>Key</label></dt>
+                <dd><input class="large" type="text" id="key" name="key" value="{request var='key'}" /></dd>
+                {error_message var='key' prepend='<dd>' append='</dd>'}
+            </dl>
+
+            <p>
+                <input class="button" type="submit" id="op" name="op" value="Activate account" />
+            </p>
+        </fieldset>
+        </form>
+
+    {elseif var='cmd' comparison='eq' value='users-passwordrecovery'}
+
+        <form action="" method="post">
+        <input name="cmd" type="hidden" value="users-passwordrecovery" />
+        <input name="pageID" type="hidden" value="{page_id}" />
+        <fieldset style="border: 0;">
+            <h1>Forgot your password?</h1>
+
+            <dl>
+                <dt><label>Email address</label><br />Fill in your email address and we will send you instructions for creating a new password.</dt>
+                <dd><input class="large" type="text" id="email_address" name="email_address" value="{request var='email_address'}" /></dd>
+                {error_message var='email_address' prepend='<dd>' append='</dd>'}
+            </dl>
+
+            <p>
+                <input class="button" type="submit" id="op" name="op" value="Recover password" />
+            </p>
+        </fieldset>
+        </form>
+
+    {elseif var='cmd' comparison='eq' value='users-passwordreset'}
+
+        <form action="" method="post">
+        <input name="cmd" type="hidden" value="users-passwordreset" />
+        <input name="pageID" type="hidden" value="{page_id}" />
+        <fieldset style="border: 0;">
+            <h1>Password reset</h1>
+
+            <dl>
+                <dt><label>User id</label></dt>
+                <dd><input class="large" type="text" id="uid" name="uid" value="{request var='uid'}" /></dd>
+                {error_message var='uid' prepend='<dd>' append='</dd>'}
+            </dl>
+
+            <dl>
+                <dt><label>Key</label></dt>
+                <dd><input class="large" type="text" id="key" name="key" value="{request var='key'}" /></dd>
+                {error_message var='key' prepend='<dd>' append='</dd>'}
+            </dl>
+
+            <dl>
+                <dt><label>Password</label></dt>
+                <dd><input class="large" type="password" id="password" name="password" value="" /></dd>
+                {error_message var='password' prepend='<dd>' append='</dd>'}
+            </dl>
+            <dl>
+                <dt><label>Re-enter password</label></dt>
+                <dd><input class="large" type="password" id="password2" name="password2" value="" /></dd>
+                {error_message var='password2' prepend='<dd>' append='</dd>'}
+            </dl>
+
+            <p>
+                <input class="button" type="submit" id="op" name="op" value="Change password" />
+            </p>
+        </fieldset>
+        </form>
+
+    {elseif var='cmd' comparison='eq' value='users-preferences'}
+
+        <form action="" method="post">
+        <input name="cmd" type="hidden" value="users-preferences" />
+        <input name="pageID" type="hidden" value="{page_id}" />
+        <fieldset style="border: 0;">
+            <h1>Change your preferences</h1>
+            <dl>
+                <dt><label>Username</label></dt>
+                <dd>{user_name}</dd>
+            </dl>
+
+            <dl>
+                <dt><label>Password</label></dt>
+                <dd><input class="large" type="password" id="password" name="password" value="" /></dd>
+                {error_message var='password' prepend='<dd>' append='</dd>'}
+            </dl>
+            <dl>
+                <dt><label>Re-enter password</label></dt>
+                <dd><input class="large" type="password" id="password2" name="password2" value="" /></dd>
+                {error_message var='password2' prepend='<dd>' append='</dd>'}
+            </dl>
+
+            <dl>
+                <dt><label>Email address</label></dt>
+                <dd><input class="large" type="text" id="email_address" name="email_address" value="{request var='email_address'}" /></dd>
+                {error_message var='email_address' prepend='<dd>' append='</dd>'}
+            </dl>
+            <dl>
+                <dt><label>Re-enter email address</label></dt>
+                <dd><input class="large" type="text" id="email_address2" name="email_address2" value="{request var='email_address2'}" /></dd>
+                {error_message var='email_address2' prepend='<dd>' append='</dd>'}
+            </dl>
+
+            <dl>
+                <dt><label>Mailing lists</label><br />Select the Email Bulletin(s) to which you would like to subscribe</dt>
+                {list_bulletins format='<dd><input name="bulletins[]" class="checkbox" type="checkbox" value="%i" %c /> %N</dd>'}
+                {error_message var='bulletins' prepend='<dd>' append='</dd>'}
+            </dl>
+
+            <p>
+                <input class="button" type="submit" id="op" name="op" value="Save changes" />
+            </p>
+        </fieldset>
+        </form>
+
+    {else}
+
+        <h1>Error</h1>
+        <p style="text-align: center;"><a href="javascript:history.go(-1)">&laquo;&nbsp;Go back&nbsp;&raquo;</a></p>
+
+    {endif}
+</div>
+
+<div id="sideBar">
+    {include snippet='sidebar'}
+</div>
+
+<div id="footer">
+    {include snippet='footer'}
+</div>
+
+</div><!-- /container -->
+</body>
+</html>

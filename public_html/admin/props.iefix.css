@@ -1,0 +1,12 @@
+
+/* IE CSS fixes */
+
+#overlay {
+    filter: alpha(opacity=50);
+    filter: progid:DXImageTransform.Microsoft.Alpha(opacity=90);
+}
+
+#dragDropContent {
+    filter: alpha(opacity=40);   /* 40 % opacity */
+    filter: progid:DXImageTransform.Microsoft.Alpha(opacity=40);
+}

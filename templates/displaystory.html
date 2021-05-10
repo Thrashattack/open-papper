@@ -1,0 +1,113 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>{publication_name} {headline prepend='- '}</title>
+    <meta http-equiv="Content-Language" content="en" />
+    <meta name="keywords" content="PROPS - Open Source News Publishing Platform 0.8, http://props.sourceforge.net/" />
+    <link rel="stylesheet" type="text/css" media="all" href="props.css" />
+    <!--[if IE]><link rel="stylesheet" type="text/css" media="all" href="props.iefix.css" /><![endif]-->
+    <script type="text/javascript" src="{scripts_url}props.js"></script>
+    <script type="text/javascript" src="{getkey var='config.url.scripts'}swfobject.js"></script>
+</head>
+<body>
+<div id="container"><!-- container -->
+
+<div id="header">
+    {include snippet='header'}
+</div>
+
+<div id="mainContent">
+    {error_message}
+
+    {if var='cmd' comparison='eq' value='displaystory-error'}
+
+        <p style="text-align: center;"><a href="javascript:history.go(-1)">&laquo;&nbsp;Go back&nbsp;&raquo;</a></p>
+
+    {elseif var='cmd' comparison='eq' value='displaystory-email'}
+
+        <h1>{headline}</h1>
+        {abstract prepend='<p>' append='</p>'}
+        <br />
+        <form method="post" action="./">
+        <input name="cmd" type="hidden" value="displaystory-email" />
+        <input name="pageID" type="hidden" value="{page_id}" />
+        <input name="story_id" type="hidden" value="{story_id}" />
+        <fieldset style="border: 0;">
+            <legend>Email story</legend>
+            <dl>
+                <dt><label>To email address</label></dt>
+                <dd><input class="large" type="text" id="to_email" name="to_email" value="{request var='to_email'}" /></dd>
+                {error_message var='to_email' prepend='<dd>' append='</dd>'}
+            </dl>
+            <dl>
+                <dt><label>Your email address</label></dt>
+                <dd><input class="large" type="text" id="from_email" name="from_email" value="{request var='from_email'}" /></dd>
+                {error_message var='from_email' prepend='<dd>' append='</dd>'}
+            </dl>
+            <dl>
+                <dt><label>Your name</label></dt>
+                <dd><input class="large" type="text" id="from_name" name="from_name" value="{request var='from_name'}" /></dd>
+                {error_message var='from_name' prepend='<dd>' append='</dd>'}
+            </dl>
+            <dl>
+                <dt><label>Your comments</label></dt>
+                <dd><textarea class="large" id="comments" name="comments" rows="5" cols="25">{request var='comments'}</textarea></dd>
+                {error_message var='comments' prepend='<dd>' append='</dd>'}
+            </dl>
+            <p>
+                <input class="button" type="submit" id="op" name="op" value="Send" />
+            </p>
+        </fieldset>
+        </form>
+
+    {else}
+
+        <h1>{headline}</h1>
+        {story_media endrow='1' mediawidth='220' mediaheight='220' prepend='<div style="float:left; margin:0 0.50em 0.50em 0;">' append='</div>'}
+        {byline_name prepend='<p>By ' append='</p>'}
+        {body_content}
+        {copyright prepend='<p class="copyright">Copyright ' append='</p>'}
+        {end_content prepend='<hr /><p>' append='</p>'}
+
+        {!-- only display email link when not a paid archive story --}
+        {if key='story.access_level' comparison='ne' value='3'}
+            <a href="{story_url cmd='displaystory-email'}">Email this story</a>
+        {endif}
+
+        {story_views prepend='<p>Total views: ' append='</p>'}
+
+        {story_comments dateformat='%A %e %B %Y %H:%M' format='<hr /><span class="smalltext"><b>posted by %U</b>, %d</span><p>%c</p>'}
+
+        {if key='story.comments_allowed' comparison='eq' value='1'}
+            <form method="post" action="./">
+            <input name="cmd" type="hidden" value="displaystory-comment" />
+            <input name="pageID" type="hidden" value="{page_id}" />
+            <input type="hidden" name="story_id" value="{request var='story_id'}" />
+            <fieldset style="border: 0;">
+                <legend>Add your comment</legend>
+                <dl>
+                    <dt><label>Your comment</label></dt>
+                    <dd><textarea class="large" id="comment" name="comment" rows="5" cols="25">{request var='comment'}</textarea></dd>
+                    {error_message var='comment' prepend='<dd>' append='</dd>'}
+                </dl>
+                <p>
+                    <input class="button" type="submit" id="op" name="op" value="Submit comment" />
+                </p>
+            </fieldset>
+            </form>
+        {endif}
+    {endif}
+</div>
+
+<div id="sideBar">
+    {include snippet='sidebar'}
+</div>
+
+<div id="footer">
+    {include snippet='footer'}
+</div>
+
+</div><!-- /container -->
+</body>
+</html>

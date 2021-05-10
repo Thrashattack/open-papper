@@ -1,0 +1,453 @@
+
+/** Main ******************************************************************* */
+
+    * {
+        /* Reset browsers default margin, padding and font sizes */
+        margin: 0;
+        padding: 0;
+        font-size: 100%;
+    }
+
+    html {
+        /* Always show a scrollbar for short pages - stops the jump when the scrollbar appears. non-ie browsers */
+        height: 100%;
+        margin-bottom: 1px;
+    }
+
+    body {
+        font-family: "Lucida Grande", Verdana, Helvetica, Arial, sans-serif;
+        color: #333333;
+        background: #ffffff;
+        margin: 10px 15px;
+        font-size: small;
+    }
+
+    img {
+        border: 0;
+    }
+
+    h1, h2, h3 {
+        font-family: "Trebuchet MS", Helvetica, sans-serif;
+        font-size: 1.70em;
+        font-weight: normal;
+        color: #1e4176;
+    }
+
+    h2 {
+        font-size: 1.40em;
+    }
+
+    h3 {
+        font-size: 1.20em;
+        text-align: left;
+    }
+
+    p {
+        margin-bottom: 0.7em;
+        line-height: 1.40em;
+        font-size: 0.90em;
+    }
+
+    hr {
+        border: 0 none;
+        border-top: 1px dashed #cccccc;
+        margin-bottom: 5px;
+        padding-bottom: 5px;
+        height: 1px;
+    }
+
+    .small {
+        font-size: 0.85em;
+    }
+
+    .hide {
+        display: none;
+    }
+
+    /* General links  */
+    a:link, a:visited {
+        color: #105289;
+        text-decoration: none;
+    }
+
+    a:hover {
+        color: #BC2A4D;
+        text-decoration: underline;
+    }
+
+    a:active {
+        color: #368AD2;
+        text-decoration: none;
+    }
+
+/** Layout ***************************************************************** */
+
+    #container {
+        width: 950px;
+        padding: 0 0 15px 0;
+        margin: 0 auto;
+        position: relative;
+        text-align: left;
+    }
+
+    #header {
+        margin-bottom: 5px;
+    }
+
+    #navBar {
+        background-color: #CA0000;
+        font-weight: bold;
+        text-transform: uppercase;
+        color: #ffffff;
+    }
+    #navBar li {
+        padding: 1px 5px 1px 5px;
+        display: inline;
+        list-style: none;
+        border-right: 1px solid #ffffff;
+    }
+    #navBar a:link, #navBar a:active, #navBar a:visited {
+        color: #ffffff;
+        text-decoration: none;
+    }
+    #navBar li a:hover {
+        color: #CA0000;
+        background-color: #ffffff;
+        text-decoration: none;
+    }
+
+    #userBar {
+        width: 100%;
+        height: 1.4em;
+        padding: 2px;
+        margin: 5px 0 5px 0;
+        font-size: 0.85em;
+        color: #CA0000;
+        border-top: 1px solid #CA0000;
+        border-bottom: 1px solid #CA0000;
+    }
+    #userBarLeft {
+        text-align: left;
+        float: left;
+    }
+    #userBarRight {
+        text-align: right;
+        float: right;
+    }
+    #userBar a:link, #userBar a:hover, #userBar a:active, #userBar a:visited {
+        color: #CA0000;
+    }
+
+    #errorContent {
+        position: static;
+        float: center;
+        width: 580px;
+        padding: 25px;
+        margin: 0 auto;
+    }
+
+    #errorContent h1 {
+        font-size: 2em;
+        font-weight: bold;
+        text-transform: uppercase;
+        color: #CA0000;
+        border-bottom: 3px solid #1e4176;
+        margin-bottom: 10px;
+    }
+
+    #errorContent span {
+        font-weight: bold;
+        color: #CA0000;
+    }
+
+    #mainContent {
+        position: static;
+        float: left;
+        width: 580px;
+        padding: 10px 15px 0 0;
+    }
+
+    #sideBar {
+        position: static;
+        float: right;
+        width: 350px;
+    }
+
+    /* Footer */
+    #footer {
+        clear: both;
+        width: 100%;
+        text-align: center;
+        border-top: 1px solid #CA0000;
+    }
+
+    #footer, #footer a {
+        padding: 5px 0 1em 0;
+        font-size: 0.85em;
+    }
+
+    #footer ul {
+        margin: 0;
+        padding: 0;
+    }
+
+    #footer li {
+        display: inline;
+        list-style: none;
+    }
+
+/* Fieldsets *************************************************************** */
+
+    fieldset {
+        margin: 15px 0;
+        padding: 5px 1em 5px 1em;
+        border-top: 1px solid #D7D7D7;
+        border-right: 1px solid #CCCCCC;
+        border-bottom: 1px solid #CCCCCC;
+        border-left: 1px solid #D7D7D7;
+        position: relative;
+    }
+
+    legend {
+        font-family: Tahoma,arial,Verdana,Sans-serif;
+        font-weight: bold;
+        color: #CA0000;
+        margin-top: -0.40em;
+        margin-left: -0.50em;
+        position: relative;
+        text-transform: none;
+        line-height: 1.2em;
+        top: 0;
+        vertical-align: middle;
+    }
+
+    fieldset p {
+        clear: both;
+        margin: 0 auto;
+        text-align: left;
+        padding: 3px 0 5px 0;
+    }
+
+    fieldset ul {
+        list-style: disc;
+        margin: 0 0 0 1em;
+    }
+
+    fieldset ul li {
+        color: #CA0000;
+    }
+
+    label {
+        font-size: 1.00em;
+        padding: 0 5px 0 0;
+        font-weight: bold;
+        color: #1e4176;
+    }
+
+/* Definition list ********************************************************* */
+
+    dl {
+        font-family: Verdana, Helvetica, Arial, sans-serif;
+        font-size: 1.00em;
+    }
+
+    dt {
+        float: left;
+        width: auto;
+    }
+
+    dd { color: #666666;}
+    dd + dd { padding-top: 5px;}
+    dt span { padding: 0 5px 0 0;}
+
+    dt .explain { font-style: italic;}
+
+    dt label {
+        font-size: 1.00em;
+        text-align: left;
+    }
+
+    dd label {
+        font-size: 1.00em;
+        white-space: nowrap;
+        margin: 0 10px 0 0;
+    }
+
+    html>body dd label input { vertical-align: text-bottom;}    /* Tweak for Moz to align checkboxes/radio buttons nicely */
+
+    dd input {
+        font-size: 1.00em;
+        max-width: 100%;
+    }
+
+    dd textarea {
+        font-size: 0.90em;
+        width: 90%;
+        max-width: 100%;
+    }
+
+    dd select {
+        width: auto;
+        font-size: 1.00em;
+        max-width: 100%;
+    }
+
+    fieldset dl {
+        margin-bottom: 10px;
+        font-size: 0.85em;
+    }
+
+    fieldset dt {
+        width: 45%;
+        text-align: left;
+        border: none;
+        border-right: 1px solid #CCCCCC;
+        padding-top: 3px;
+    }
+
+    fieldset dd {
+        margin: 0 0 0 45%;
+        padding: 0 0 0 5px;
+        border: none;
+        border-left: 1px solid #CCCCCC;
+        vertical-align: top;
+        font-size: 1.00em;
+    }
+
+    /* Hover highlights for form rows */
+    fieldset dl:hover dt, fieldset dl:hover dd {
+        border-color: #BC2A4D;
+    }
+
+    fieldset dl:hover dt label {
+        color: #BC2A4D;
+    }
+
+    fieldset dl dd label:hover {
+        color: #BC2A4D;
+    }
+
+/* Forms ******************************************************************* */
+
+    input, textarea, select {
+        font-family: Verdana, Helvetica, Arial, sans-serif;
+        font-size: 0.90em;
+        font-weight: normal;
+        vertical-align: middle;
+        padding: 2px;
+        color: #111111;
+        border-left: 1px solid #AFAEAA;
+        border-top: 1px solid #AFAEAA;
+        border-right: 1px solid #D5D5C8;
+        border-bottom: 1px solid #D5D5C8;
+        background-color: #F7F7F7;
+    }
+
+    select {
+        cursor: pointer;
+    }
+
+    /* IE checkbox fix */
+    * html .checkbox {
+        border: none;
+        background-color: transparent;
+    }
+
+    input:hover, textarea:hover, select:hover {
+        border-left: 1px solid #BC2A4D;
+        border-top: 1px solid #BC2A4D;
+        border-right: 1px solid #BC2A4D;
+        border-bottom: 1px solid #BC2A4D;
+        color: #BC2A4D;
+    }
+
+    input:focus, textarea:focus, select:focus {
+        border: 1px solid #BC2A4D;
+        color: #111111;
+    }
+
+    .disabled {
+        color: graytext;
+    }
+
+    input.openid {
+        padding-left: 20px;
+        background: url(./images/openid.gif) #fff no-repeat 0px 50%;
+    }
+
+    .full { width: 97%; }
+    .large { width: 75%; }
+    .medium { width: 50%; }
+    .narrow { width: 25%; }
+    .autowidth { width: auto !important; }
+
+/* Buttons ***************************************************************** */
+
+    input.button, a.button, a.button:link, a.button:visited, a.button:active {
+        width: auto !important;
+        margin: 3px;
+        padding: 1px 3px 1px 3px;
+        font-family: "Lucida Grande", Verdana, Helvetica, Arial, sans-serif;
+        color: #000000;
+        font-size: 0.85em;
+        background: #EFEFEF;
+        cursor: pointer;
+        font-weight: bold;
+        border: 1px solid #666666;
+        text-decoration: none;
+    }
+
+    /* Hover states */
+    a.button:hover, input.button:hover {
+        border: 1px solid #BC2A4D;
+        color: #BC2A4D;
+    }
+
+/* Others ****************************************************************** */
+
+    .error {
+        color: #ff0000;
+        background-color: #ffffe1;
+        border: 1px dashed #cfcfcf;
+        margin: 5px;
+        padding: 3px;
+        font-size: 1em;
+        font-weight: bold;
+    }
+
+    .formerror {
+        color: Red;
+        font-size: 0.85em;
+        font-weight: bold;
+        line-height: 0;
+    }
+
+    .rss, a.rss:link, a.rss:hover, a.rss:active, a.rss:visited {
+        margin: 0 3px 0 3px;
+        padding: 0px 5px 0px 5px;
+        font-weight: bold;
+        font-size: 0.85em;
+        text-transform: uppercase;
+        color: #ffffff;
+        background: #FA7805;
+        border-top: 1px solid #FFA400;
+        border-right: 1px solid #DA2B00;
+        border-bottom: 1px solid #DA2B00;
+        border-left: 1px solid #FFA400;
+    }
+
+    #debugBar {
+        color: #00008b; font-weight: bold; font-variant: small-caps; text-align: right; z-index: 500;
+        right: 0px; top: 0px;   position: absolute; width: 590px; height: 15px;
+        background-color: #fff7d7; border: 1px solid #ffcc33; overflow: hidden;
+        padding: 0 10px 0 0;
+    }
+    #debugInfo,#debugError,#debugWarning,#debugNotice,#debugRegistry {
+        right: 0px; top: 17px;  position: absolute; width: 600px; height: 250px; z-index: 500;
+        background-color: #fff7d7; border: 1px dashed #ffcc33; padding: 0px; overflow: auto; visibility:hidden
+    }
+    .msgbox       { background-color: #ffffe1; border: 1px dashed #cfcfcf; margin-top: 1px; margin-bottom: 1px; padding: 1px 5px 1px 5px; text-align: left; }
+    .msgDebug   { color: #00008b; }
+    .msgError   { color: #ff0000; font-weight: bold; }
+    .msgWarning { color: #ff8c00; font-weight: bold; }
+    .msgNotice  { color: #006400; font-weight: bold; }

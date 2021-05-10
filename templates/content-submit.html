@@ -1,0 +1,113 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>{publication_name}</title>
+    <meta http-equiv="Content-Language" content="en" />
+    <meta name="keywords" content="PROPS - Open Source News Publishing Platform 0.8, http://props.sourceforge.net/" />
+    <link rel="stylesheet" type="text/css" media="all" href="props.css" />
+    <!--[if IE]><link rel="stylesheet" type="text/css" media="all" href="props.iefix.css" /><![endif]-->
+    <script type="text/javascript" src="{scripts_url}props.js"></script>
+    {include snippet='tiny_mce'}
+</head>
+<body>
+<div id="container"><!-- container -->
+
+<div id="header">
+    {include snippet='header'}
+</div>
+
+<div id="mainContent">
+    {error_message}
+    {if var='cmd' comparison='eq' value='content-submitted'}
+
+        <p>The content is submitted to the submit queue, waiting for approval.</p>
+
+    {elseif var='cmd' comparison='eq' value='content-submit'}
+
+        <form method="post" action="./">
+        <input name="cmd" type="hidden" value="content-submit" />
+        <input name="onsuccess" type="hidden" value="content-submitted" />
+        <input name="pageID" type="hidden" value="{page_id}" />
+        <fieldset style="border: 0;">
+            <legend>Submit content</legend>
+        {if user_has_priv='content-assign_to_edition'}
+            <dl>
+                <dt><label>Edition</label></dt>
+                <dd>{assign_to_edition}</dd>
+                {error_message var='edition_id' prepend='<dd>' append='</dd>'}
+            </dl>
+        {endif}
+        {if user_has_priv='content-assign_to_section'}
+            <dl>
+                <dt><label>Section</label></dt>
+                <dd>{assign_to_section}</dd>
+                {error_message var='section_id' prepend='<dd>' append='</dd>'}
+            </dl>
+        {endif}
+            <dl>
+                <dt><label>Content type</label></dt>
+                <dd><input class="large" type="text" id="content_type" name="content_type" value="{request var='content_type'}" /></dd>
+                {error_message var='content_type' prepend='<dd>' append='</dd>'}
+            </dl>
+            <dl>
+                <dt><label>Headline</label></dt>
+                <dd><input class="large" type="text" id="headline" name="headline" value="{request var='headline'}" /></dd>
+                {error_message var='headline' prepend='<dd>' append='</dd>'}
+            </dl>
+            <dl>
+                <dt><label>Subhead</label></dt>
+                <dd><input class="large" type="text" id="subhead" name="subhead" value="{request var='subhead'}" /></dd>
+                {error_message var='subhead' prepend='<dd>' append='</dd>'}
+            </dl>
+            <p>
+                <label>Abstract</label><br />
+                {error_message var='abstract' prepend='<p>' append='</p>'}
+                <textarea class="full" style="height: 80px;" id="abstract" name="abstract" rows="25" cols="80">{request var='abstract'}</textarea>
+            </p>
+            <p>
+                <label>Body content</label><br />
+                {error_message var='body_content' prepend='<p>' append='</p>'}
+                <textarea class="full" style="height: 250px;" id="body_content" name="body_content" rows="25" cols="80">{request var='body_content'}</textarea>
+            </p>
+            <p>
+                <label>End content</label><br />
+                {error_message var='end_content' prepend='<p>' append='</p>'}
+                <textarea class="full" style="height: 80px;" id="end_content" name="end_content" rows="25" cols="80">{request var='end_content'}</textarea>
+            </p>
+            <dl>
+                <dt><label>Copyright</label></dt>
+                <dd><input class="large" type="text" id="copyright" name="copyright" value="{request var='copyright'}" /></dd>
+                {error_message var='copyright' prepend='<dd>' append='</dd>'}
+            </dl>
+            <dl>
+                <dt><label>Source URL</label></dt>
+                <dd><input class="large" type="text" id="source_url" name="source_url" value="{request var='source_url'}" /></dd>
+                {error_message var='source_url' prepend='<dd>' append='</dd>'}
+            </dl>
+            <dl>
+                <dt><label>Source description</label></dt>
+                <dd><input class="large" type="text" id="source_desc" name="source_desc" value="{request var='source_desc'}" /></dd>
+                {error_message var='source_desc' prepend='<dd>' append='</dd>'}
+            </dl>
+            <p>
+                <input class="button" type="submit" id="op" name="op" value="Submit content" />
+            </p>
+        </fieldset>
+        </form>
+        <br />
+
+    {endif}
+</div>
+
+<div id="sideBar">
+    {include snippet='sidebar'}
+</div>
+
+<div id="footer">
+    {include snippet='footer'}
+</div>
+
+</div><!-- /container -->
+</body>
+</html>

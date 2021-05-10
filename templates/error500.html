@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <title><?php echo $error['title']; ?></title>
+    <meta http-equiv="pragma" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate" />
+    <style type="text/css">
+    <!--
+    body, html {
+        font-family: Arial;
+        padding: 0; margin: 0;
+        background: #F8F7EF; height: 100%;
+    }
+    body {
+        font-size: 76%;
+    }
+    #outer {
+        width: 100%; height: 100%;
+        overflow: visible; position: relative;
+    }
+    #outer[id] {
+        display: table; position: static;
+    }
+    #middle {
+        position: absolute; top: 50%;
+    }
+    #middle[id] {
+        display: table-cell; vertical-align: middle;
+        position: static;
+    }
+    #inner {
+        margin:0 auto; padding:20px;
+        min-height:147px; width:400px;
+        position:relative; top:-50%;
+        border:1px solid  #E7E4D3; background:#fff;
+    }
+    h1 {
+        font-size:1.3em; color:#CC3300
+    }
+    img {
+        float:left; margin-right:20px;
+    }
+    -->
+    </style>
+</head>
+<body>
+<div id="outer">
+    <div id="middle">
+        <div id="inner">
+            <!-- img src="logo.png" alt="Logo" height="" width="" -->
+            <h1><?php echo $error['title']; ?></h1>
+            <p><?php echo $error['text1']; ?></p>
+            <p><?php echo $error['text2']; ?></p>
+            <p><?php echo $error['description']; ?></p>
+            <p style="text-align: center;">&laquo; <?php echo $error['url'] ?> &raquo;</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

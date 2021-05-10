@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<rss version="2.0">
+    <channel>
+        <title>{publication_name} - RSS feed</title>
+        <link>{base_url}</link>
+        <description>This channel is an example channel for an RSS feed.</description>
+        <language>en-us</language>
+
+        {if var='cmd' comparison='eq' value='rssfeed-topstories'}
+            {storylist rssfeed='true' minweight='100' order='weight desc' format='
+                <item>
+                    <title>%h</title>
+                    <link>%U</link>
+                    <description>%a</description>
+                </item>'
+            }
+        {else}
+            {storylist order='published_stamp DESC' rssfeed='true' endrow='10' format='
+                <item>
+                    <title>%h</title>
+                    <link>%U</link>
+                    <description>%a</description>
+                </item>'
+            }
+        {endif}
+
+    </channel>
+</rss>

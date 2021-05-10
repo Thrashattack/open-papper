@@ -1,0 +1,198 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>{publication_name}</title>
+    <meta http-equiv="Content-Language" content="en" />
+    <meta name="keywords" content="PROPS - Open Source News Publishing Platform 0.8, http://props.sourceforge.net/" />
+    <link rel="stylesheet" type="text/css" media="all" href="props.css" />
+    <!--[if IE]><link rel="stylesheet" type="text/css" media="all" href="props.iefix.css" /><![endif]-->
+    <script type="text/javascript" src="{scripts_url}props.js"></script>
+</head>
+<body>
+<div id="container"><!-- container -->
+
+<div id="header">
+    {include snippet='header'}
+</div>
+
+<div id="mainContent">
+    {error_message}
+
+    {if var='cmd' comparison='eq' value='archives-search'}
+
+        <form method="post" action="./">
+            <input name="cmd" type="hidden" value="archives-search" />
+            <input name="pageID" type="hidden" value="{page_id}" />
+            <p style="text-align: center;">
+                <input class="medium" type="text" id="search_string" name="search_string" value="{request var='search_string'}" />&nbsp;
+                <input class="button" type="submit" id="op" name="op" value="Search" />
+            </p>
+        </form>
+
+        <h3>Search Results {archives_search_string prepend='for: <i>&quot;' append='&quot;</i>'}</h3>
+
+        {if key='archives.num_results' comparison='gt' value='0'}
+            <div class="smalltext center" style="background-color: #E5ECF9;"><b>{archives_prev_page}&nbsp;&nbsp;Page {archives_current_page} of {archives_num_pages}&nbsp;&nbsp;{archives_next_page}</b></div>
+            <br />
+            {archives_search_results format='<p><b><a href="%u">%h</a></b> (%d)%P<br />%a</p><br />' paid_item_indicator='&nbsp;<span style="color:green; font-size: 16px;"><b>$</b></span>' dateformat='%A %e %B %Y'}
+            <div class="smalltext center" style="background-color: #E5ECF9;"><b>{archives_prev_page}&nbsp;&nbsp;Page {archives_current_page} of {archives_num_pages}&nbsp;&nbsp;{archives_next_page}</b></div>
+            <p>Retrieval of stories marked with a <span style="color:green; font-size: 16px;"><b>$</b></span> requires purchase of a Premium Archives account.</p>
+        {else}
+            <p class="center"><i>No results found.</i></p>
+        {endif}
+
+    {elseif var='cmd' comparison='eq' value='archives-advanced'}
+
+        <form method="post" action="./">
+        <input name="cmd" type="hidden" value="archives-search" />
+        <input name="onfailure" type="hidden" value="archives-advanced" />
+        <input name="pageID" type="hidden" value="{page_id}" />
+        <fieldset style="border: 0;">
+            <legend>Search {publication_name}</legend>
+            <p  style="text-align: left;">Articles published in the last 7 days may be viewed at no charge.
+            Older articles may be viewed if you are a registered user and have
+            <a href="{gen_url cmd='archives-accountstatus'}"> a
+            premium archives account</a>.</p>
+
+            <dl>
+                <dt><label>Search for</label></dt>
+                <dd><input class="large" type="text" id="search_string" name="search_string" value="{request var='search_string'}" /></dd>
+                {error_message var='search_string' prepend='<dd>' append='</dd>'}
+            </dl>
+
+            <dl>
+                <dt><label>Search in this date range</label></dt>
+                <dd>{archives_date_select}</dd>
+            </dl>
+
+            <dl>
+                <dt><label>Sort the results in this order</label></dt>
+                <dd>{archives_sortresults_radioselect}</dd>
+            </dl>
+
+            <p>
+                <input class="button" type="submit" id="op" name="op" value="Search archives" />
+            </p>
+        </fieldset>
+        </form>
+
+    {elseif var='cmd' comparison='eq' value='archives-confirm_credit'}
+
+        <p>Viewing the following story will use one of the remaining {archives_credits_remaining} credit(s) in your archives account:</p>
+        <hr />
+        <h1>{headline}</h1>
+        {subhead prepend='<h2>' append='</h2>'}
+        {byline_name prepend='<p><strong>Writer:</strong>' append='</p>'}
+        {story_date prepend='<p><strong>Publication date:</strong>' append='</p>'}
+        {abstract prepend='<p><strong>Abstract:</strong>' append='</p>'}
+        {wordcount prepend='<p><strong>Word count:</strong>' append='</p>'}
+
+        <br />
+        <form method="post" action="./">
+        <input name="cmd" type="hidden" value="archives-confirm_credit" />
+        <input name="pageID" type="hidden" value="{page_id}" />
+        <input name="story_id" type="hidden" value="{getkey var='request.story_id'}" />
+        <p>
+            <input class="button" type="submit" id="op" name="op" value="Confirm" />
+        </p>
+        </form>
+
+    {elseif var='cmd' comparison='eq' value='archives-purchase_content'}
+
+        <form action="{base_ssl_url}" method="post">
+        <input name="cmd" type="hidden" value="archives-purchase_content" />
+        <input name="pageID" type="hidden" value="{page_id}" />
+        {!-- use getkey for the story_id so we even get it when no story is loaded --}
+        <input name="story_id" type="hidden" value="{getkey var='request.story_id'}" />
+
+        <fieldset style="border: 0;">
+            <legend>Purchase content</legend>
+            <p>Note: To ensure the security of your personal information, this form will be submitted to a secure server.</p>
+
+            <dl>
+                <dt><label>Payment plan</label></dt>
+                <dd>{archives_subscription_plans_radioselect}</dd>
+                {error_message var='subscription_plan_id' prepend='<dd>' append='</dd>'}
+            </dl>
+
+            <dl>
+                <dt><label>Credit card type</label></dt>
+                <dd>
+                    <select class="large" name="cc_type">
+                        <option value="vis">Visa</option>
+                        <option value="mcd">Mastercard</option>
+                    </select>
+                </dd>
+                {error_message var='cc_type' prepend='<dd>' append='</dd>'}
+            </dl>
+
+            <dl>
+                <dt><label>Name on the card</label></dt>
+                <dd><input class="large" type="text" id="cc_name" name="cc_name" value="{request var='cc_name'}" /></dd>
+                {error_message var='cc_name' prepend='<dd>' append='</dd>'}
+            </dl>
+
+            <dl>
+                <dt><label>Card number</label></dt>
+                <dd><input class="large" type="text" id="cc_number" name="cc_number" value="{request var='cc_number'}" maxlength="16" /></dd>
+                {error_message var='cc_number' prepend='<dd>' append='</dd>'}
+            </dl>
+
+            <dl>
+                <dt><label>Expiration date</label></dt>
+                <dd>
+                    <select class="narrow" name="cc_exp_month">
+                        <option value="1">01</option>
+                        <option value="2">02</option>
+                        <option value="3">03</option>
+                        <option value="4">04</option>
+                        <option value="5">05</option>
+                        <option value="6">06</option>
+                        <option value="7">07</option>
+                        <option value="8">08</option>
+                        <option value="9">09</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                    </select>
+                    &nbsp;
+                    <select class="narrow" name="cc_exp_year">
+                        <option value="2007">2007</option>
+                        <option value="2008">2008</option>
+                        <option value="2009">2009</option>
+                        <option value="2010">2011</option>
+                        <option value="2011">2011</option>
+                        <option value="2012">2012</option>
+                        <option value="2013">2013</option>
+                    </select>
+                </dd>
+                {error_message var='cc_exp_month' prepend='<dd>' append='</dd>'}
+                {error_message var='cc_exp_year' prepend='<dd>' append='</dd>'}
+            </dl>
+
+            <p>
+                <input class="button" type="submit" id="op" name="op" value="Purchase content" />
+            </p>
+        </fieldset>
+        </form>
+
+    {else}
+
+        <h1>Error</h1>
+        <p style="text-align: center;"><a href="javascript:history.go(-1)">&laquo;&nbsp;Go back&nbsp;&raquo;</a></p>
+
+    {endif}
+</div>
+
+<div id="sideBar">
+    {include snippet='sidebar'}
+</div>
+
+<div id="footer">
+    {include snippet='footer'}
+</div>
+
+</div><!-- /container -->
+</body>
+</html>

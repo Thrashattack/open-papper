@@ -32,7 +32,7 @@
  * 'LICENSE' file included with this software for more details.
  *
  * @license     http://www.gnu.org/licenses/gpl.txt  GNU GENERAL PUBLIC LICENSE
- * @version     $Id: config.default.php,v 1.37 2008/01/07 15:35:07 roufneck Exp $
+ * @version     $Id: config.php,v 1.37 2008/01/07 15:35:07 roufneck Exp $
  */
 
 /******************************************************************************
@@ -42,7 +42,7 @@
     /**
      * Publication name (site name)
      */
-    props_setkey('config.publication.name', 'PROPS Gazette');
+    props_setkey('config.publication.name', $_ENV['SITENAME']);
 
     /**
      * Default copyright
@@ -50,7 +50,7 @@
      * If you want the copyright field on the "add story" admin screen to be
      * filled in by default, fill in the value here. Otherwise leave it blank.
      */
-    props_setkey('config.default.copyright', 'PROPS Gazette');
+    props_setkey('config.default.copyright', $_ENV['SITECOPYRIGHT']);
 
     /**
      * Default story access level [free|reg_required|paid_archives]
@@ -62,7 +62,7 @@
      * - <b>paid_archives</b> - most new articles will be sent directly to the
      *      paid archives
      */
-    props_setkey('config.default.story_access_level', 'free');
+    props_setkey('config.default.story_access_level', $_ENV['ACCESSLEVEL']);
 
     /**
      * Default timezone
@@ -71,7 +71,7 @@
      * {@link  http://www.php.net/manual/en/function.date-default-timezone-set.php  date_default_timezone_set}.
      * For the right value see {@link  http://www.php.net/manual/en/timezones.php}
      */
-    props_setkey('config.default.timezone', 'GMT');
+    props_setkey('config.default.timezone', $_ENV['TIMEZONE']);
 
     /**
      * Internationalization
@@ -79,7 +79,7 @@
      * Default site language settings and strings. Look in the locale dir for
      * the possible values.
      */
-    props_setkey('config.i18n', 'en_US');
+    props_setkey('config.i18n', $_ENV['LOCALE']);
 
     /**
      * OpenID login support [TRUE|FALSE]
@@ -113,7 +113,7 @@
     /**
      * Keep statistics for maximum x days
      */
-    props_setkey('config.stats.max_days', 730);
+    props_setkey('config.stats.max_days', $_ENV['MAXDAYSKEEPSTATISTICS']);
 
     /**
      * Single quotes template parameters [TRUE|FALSE]
@@ -182,7 +182,7 @@
      *
      * Name of the PROPS database.
      */
-    props_setkey('config.db.name', 'props');
+    props_setkey('config.db.name', $_ENV['MYSQLDB']);
 
     /**
      * Database server
@@ -194,8 +194,9 @@
     /**
      * Database connection login settings
      */
-    props_setkey('config.db.user', 'props');
-    props_setkey('config.db.password', 'password');
+
+    props_setkey('config.db.user', $_ENV['MYSQLUSR']);
+    props_setkey('config.db.password', $_ENV['MYSQLROOTPWD']);
 
     /**
      * Database sessions [TRUE|FALSE]
